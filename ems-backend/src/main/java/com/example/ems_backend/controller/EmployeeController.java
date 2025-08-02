@@ -33,8 +33,17 @@ public class EmployeeController {
         return new ResponseEntity<>(employees,HttpStatus.OK);
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable("id")Long employeeId,
+                                                      @RequestBody EmployeeDto employeeDto){
+        EmployeeDto updateEmployee = employeeService.updateEmployee(employeeId,employeeDto);
+        return new ResponseEntity<>(updateEmployee,HttpStatus.OK);
 
+    }
 
-
-
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteEmployee(@PathVariable("id")Long id){
+        employeeService.deleteEmployee(id);
+        return ResponseEntity.ok("Employee Deleted Successfully");
+    }
 }
