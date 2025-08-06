@@ -15,12 +15,14 @@ function App() {
       <BrowserRouter>
         <HeaderComponent />
         <Routes>
-          //http://localhost:3000 
-            <Route path='/' element={<ListemployeeComponent/>}></Route>
-          {/* //http://localhost:3000  */}
-            <Route path='/employees' element={<ListemployeeComponent/>}></Route>
-          //http://localhost:3000/add-employee
-            <Route path='/add-employee' element={<EmployeeComponent/>}></Route> 
+          // http://localhost:3000
+          <Route path='/' element={<ListemployeeComponent />}></Route>
+           // http://localhost:3000
+          <Route path='/employees' element={<ListemployeeComponent />}></Route>
+          // http://localhost:3000/add-employee
+          <Route path='/add-employee' element={<EmployeeComponent />}></Route>
+          // http://localhost:3000/update-employee/id
+          <Route path='/update-employee/:id' element={<EmployeeComponent />}></Route>
         </Routes>
         <FooterComponent />
       </BrowserRouter>

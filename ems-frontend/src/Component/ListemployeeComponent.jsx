@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react'
-import { listEmployees } from '../Services/EmployeeService'
+import { deleteEmployee, listEmployees } from '../Services/EmployeeService'
 import { useNavigate } from 'react-router-dom'
 
 const ListemployeeComponent = () => {
@@ -9,16 +9,34 @@ const ListemployeeComponent = () => {
     const navigator = useNavigate();
 
     useEffect(()=>{
+        getAllEmployees();
+
+    },[])
+
+    function getAllEmployees(){
         listEmployees().then((response)=>{
             setEmployees(response.data);
         }).catch(error=>{
             console.error("Error");
         })
-
-    },[])
+    }
 
     function addNewEmployee(){
         navigator('/add-employee') 
+    }
+
+    function updateEmployee(id){
+        navigator(`/update-employee/${id}`)
+    }
+
+    function removeEmployee(id){
+        console.log(id);
+        deleteEmployee(id).then((response)=>{
+                getAllEmployees();
+        }).catch(error=>{
+            console.error(error);
+            
+        })
     }
     return (
         <div className='container'>
@@ -31,6 +49,8 @@ const ListemployeeComponent = () => {
                         <th>Employee First Name</th>
                         <th>Employee Last Name</th>
                         <th>Employee Email</th>
+                        <th>Action</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -41,6 +61,12 @@ const ListemployeeComponent = () => {
                                 <td>{employee.firstName}</td>
                                 <td>{employee.lastName}</td>
                                 <td>{employee.email}</td>
+                                <td>
+                                    <button className='btn btn-info' onClick={()=> updateEmployee(employee.id)}>Update</button>
+                                    <button className='btn btn-danger' onClick={()=> removeEmployee(employee.id)}
+                                        style={{marginLeft:'10px'}}
+                                        >Delete</button>
+                                </td>
                             </tr>
                         )
                     }
